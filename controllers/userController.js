@@ -73,11 +73,14 @@ export function loginUser(req,res){
                     
                 }
 
-                const token = jwt.sign(userdata,process.env.JWT_KEY);
+                const token = jwt.sign(userdata,process.env.JWT_KEY,{
+                    expiresIn:"48hrs"
+                });
 
                 res.json({
                     message : "Login successful",
-                    token : token
+                    token : token,
+                    user : userdata
                 });
             }else{
                 res.status(403).json({
